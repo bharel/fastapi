@@ -598,12 +598,12 @@ def request_params_to_args(
         ):
             value = received_params.getlist(field.alias) or field.default
         else:
-            value = received_params.get(field.alias, _sentinel)
+            value = received_params.get(field.alias)
         field_info = get_field_info(field)
         assert isinstance(
             field_info, params.Param
         ), "Params must be subclasses of Param"
-        if value is _sentinel:
+        if value is None:
             if field.required:
                 if PYDANTIC_1:
                     errors.append(
